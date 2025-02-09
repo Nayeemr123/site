@@ -156,7 +156,6 @@ if not data.empty:
         st.write(f"ROI Data Table ({start_date.strftime('%Y/%m/%d')} - {end_date.strftime('%Y/%m/%d')})") 
         st.write(roi_df)
 
-    st.write("#### Investment Growth")
     # Add a dropdown menu for selecting the view for growth chart
     view_option = st.selectbox(
         "Select view for growth chart",
