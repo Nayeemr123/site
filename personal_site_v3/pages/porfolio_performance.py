@@ -122,18 +122,6 @@ data = get_data(tickers, start_date, end_date)
 
 # Display the data in page
 if not data.empty:
-    st.write("#### Price Comparison")
-    
-    col1, col2 = st.columns(2, gap='Large')
-    with col1:
-        st.write("Comparison Chart")
-        fig = px.line(data, x=data.index, y=data.columns)
-        st.plotly_chart(fig, use_container_width=True)
-
-    with col2:
-        st.write("Adj Close Prices Ordered by Date")
-        st.write(data)
-
     st.write("#### ROI")  
     st.write(f"{start_date.strftime('%Y/%m/%d')} to {end_date.strftime('%Y/%m/%d')}")   
     st.write("Discover how your investments grow over time! Enter your initial investment amount and select a time period to calculate your potential return on investment (ROI). Visualize the performance of your investments with interactive charts, tracking daily, weekly, and monthly growth or decline. This tool helps you make informed financial decisions whether you're planning for the future or analyzing past performance,")
@@ -180,6 +168,18 @@ if not data.empty:
         options=["Daily", "Monthly", "Yearly"],
         index=1  # Default to Monthly
     )
+
+    st.write("#### Price Comparison")
+    
+    col1, col2 = st.columns(2, gap='Large')
+    with col1:
+        st.write("Comparison Chart")
+        fig = px.line(data, x=data.index, y=data.columns)
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col2:
+        st.write("Adj Close Prices Ordered by Date")
+        st.write(data)
 
     # Calculate metrics
     st.write("### Key Metrics")
