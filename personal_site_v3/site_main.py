@@ -1,5 +1,9 @@
 import streamlit as st
 
+st.set_page_config(
+    theme="dark"
+)
+
 # page setup
 about_page =st.Page(
     page = "pages/about_me.py",
