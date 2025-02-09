@@ -153,7 +153,7 @@ if not data.empty:
             })
 
         roi_df = pd.DataFrame(roi_data)
-        st.write(f"ROI Data Table {start_date.strftime('%Y/%m/%d')} to {end_date.strftime('%Y/%m/%d')}") 
+        st.write(f"ROI Data Table ({start_date.strftime('%Y/%m/%d')} to {end_date.strftime('%Y/%m/%d')})") 
         st.write(roi_df)
   
     # Add a dropdown menu for selecting the view for growth rate comparison
