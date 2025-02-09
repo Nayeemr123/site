@@ -134,11 +134,12 @@ if not data.empty:
         st.write("Adj Close Prices Ordered by Date")
         st.write(data)
 
-    st.write("#### Your ROI")
+    st.write(f"#### Your ROI ({start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')})")
+    st.write("Calculate the Return on Investment for a given time periodbased on your initial investment amount.")
     col3, col4 = st.columns(2, gap='Large')
     with col3:
         # Calculate ROI based on the initial investment amount
-        investment_amount = st.number_input("Enter your investment amount ($)", min_value=0, value=1000)
+        investment_amount = st.number_input("Enter investment amount ($)", min_value=0, value=1000)
 
     with col4:
         roi_data = []
@@ -146,9 +147,9 @@ if not data.empty:
             initial_price = data[ticker].iloc[0]
             latest_price = data[ticker].iloc[-1]
             shares_purchased = investment_amount / initial_price
-            final_value = shares_purchased * latest_price
-            roi = final_value - investment_amount
-            roi_percentage = ((latest_price - initial_price) / initial_price) * 100  # Same as growth rate
+            final_value = round(shares_purchased * latest_price, 2)
+            roi = round(final_value - investment_amount, 2)
+            roi_percentage = round(((latest_price - initial_price) / initial_price) * 100, 2)  # Same as growth rate
 
             roi_data.append({
                 "Ticker": ticker,
@@ -161,6 +162,7 @@ if not data.empty:
             })
 
         roi_df = pd.DataFrame(roi_data)
+        st.write("ROI Data Table")
         st.write(roi_df)
   
     # Add a dropdown menu for selecting the view for growth rate comparison
@@ -179,7 +181,7 @@ if not data.empty:
         growth_rate = data.pct_change().dropna()
 
     # Line chart for the growth rate comparison based on the selected view
-    fig_growth = px.line(growth_rate, x=growth_rate.index, y=growth_rate.columns, title=f"Stock Growth Rate Comparison ({view_option})")
+    fig_growth = px.line(growth_rate, x=growth_rate.index, y=growth_rate.columns, title=f"ROI Growth Rate Comparison ({view_option})")
     st.plotly_chart(fig_growth)
 
     # Calculate metrics
