@@ -134,9 +134,8 @@ if not data.empty:
         st.write("Adj Close Prices Ordered by Date")
         st.write(data)
 
-    st.write("#### Your ROI")
-    st.write(f"({start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')})")
-    st.write("Calculate the Return on Investment for a given time periodbased on your initial investment amount.")
+    st.write(f"#### ROI {start_date.strftime('%dd-%mm-%yy')} to {end_date.strftime('%dd-%mm-%yy')}")
+    st.write("Discover how your investments grow over time! Enter your initial investment amount and select a time period to calculate your potential return on investment (ROI). Visualize the performance of your investments with interactive charts, tracking daily, weekly, and monthly growth or decline. This tool helps you make informed financial decisions whether you're planning for the future or analyzing past performance,")
     col3, col4 = st.columns(2, gap='Large')
     with col3:
         # Calculate ROI based on the initial investment amount
@@ -229,6 +228,8 @@ if not data.empty:
         descriptions[ticker] = description  # Store description in the dictionary
         st.write(f"**{ticker}**:")
         st.write(description)
+
+    st.write("**Disclaimer**: This dashboard is for informational purposes only and should not be considered financial advice. Please conduct your own research before making any investment decisions.")
 
 else:
     st.warning("Select one or more tickers to begin.")
