@@ -158,13 +158,13 @@ if not data.empty:
 
     # Add a dropdown menu for selecting the view for growth chart
     view_option = st.selectbox(
-        "Select view for growth chart",
+        "Select view for chart",
         options=["Daily", "Monthly", "Yearly"],
         index=1  # Default to Monthly
     )
 
     # Plot the growth or decline of the investment amount
-    fig_growth = px.line(growth_data, x=growth_data.index, y=growth_data.columns, labels={'value': 'Amount USD($)'}, title='Investment Growth Chart')
+    fig_growth = px.line(growth_data, x=growth_data.index, y=growth_data.columns, labels={'value': 'Amount USD($)'}, title='Investment Growth Over Time Chart')
     st.plotly_chart(fig_growth, use_container_width=True)
 
     st.write("#### Price Comparison")
