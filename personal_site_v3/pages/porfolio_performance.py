@@ -90,7 +90,7 @@ selected_tickers = st.sidebar.multiselect(
 )
 
 # Manual input for tickers
-manual_tickers = st.sidebar.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, TSLA")
+manual_tickers = st.sidebar.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, HIMS")
 
 # Combine selected tickers from dropdown and manual input
 tickers = [ticker.split(" - ")[0] for ticker in selected_tickers]
