@@ -122,7 +122,7 @@ data = get_data(tickers, start_date, end_date)
 
 # Display the data in page
 if not data.empty:
-    st.write("#### Returns on Investment (ROI)")    
+    st.write("#### Return on Investment (ROI)")    
     st.write("Calculate investments over a given time period to see your potential ROI. Visualize the performance of your investments with interactive charts, tracking daily, weekly, and monthly growth or decline.")
     col3, col4 = st.columns(2, gap='Large')
     with col3:
@@ -153,7 +153,7 @@ if not data.empty:
             })
 
         roi_df = pd.DataFrame(roi_data)
-        st.write(f"ROI Data Table{start_date.strftime('%Y/%m/%d')} to {end_date.strftime('%Y/%m/%d')}") 
+        st.write(f"ROI Data Table {start_date.strftime('%Y/%m/%d')} to {end_date.strftime('%Y/%m/%d')}") 
         st.write(roi_df)
   
     # Add a dropdown menu for selecting the view for growth rate comparison
