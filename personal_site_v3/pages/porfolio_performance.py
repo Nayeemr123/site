@@ -134,7 +134,8 @@ if not data.empty:
         st.write("Adj Close Prices Ordered by Date")
         st.write(data)
 
-    st.write(f"#### Your ROI ({start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')})")
+    st.write("#### Your ROI")
+    st.write(f"({start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')})")
     st.write("Calculate the Return on Investment for a given time periodbased on your initial investment amount.")
     col3, col4 = st.columns(2, gap='Large')
     with col3:
