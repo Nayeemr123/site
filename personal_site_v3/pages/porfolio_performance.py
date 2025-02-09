@@ -153,9 +153,10 @@ if not data.empty:
             })
 
         roi_df = pd.DataFrame(roi_data)
-        st.write(f"ROI Data Table ({start_date.strftime('%Y/%m/%d')} to {end_date.strftime('%Y/%m/%d')})") 
+        st.write(f"ROI Data Table ({start_date.strftime('%Y/%m/%d')} - {end_date.strftime('%Y/%m/%d')})") 
         st.write(roi_df)
-  
+
+    st.write("#### Investment Growth")
     # Add a dropdown menu for selecting the view for growth rate comparison
     view_option = st.selectbox(
         "Select view for growth rate chart",
@@ -164,7 +165,6 @@ if not data.empty:
     )
 
     # Plot the growth or decline of the investment amount
-    st.write("#### Growth or Decline of Investment Amount")
     fig_growth = px.line(growth_data, x=growth_data.index, y=growth_data.columns, labels={'value': 'Growth/Decline ($)'})
     st.plotly_chart(fig_growth, use_container_width=True)
 
