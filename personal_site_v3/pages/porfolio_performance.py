@@ -157,15 +157,15 @@ if not data.empty:
         st.write(roi_df)
 
     st.write("#### Investment Growth")
-    # Add a dropdown menu for selecting the view for growth rate comparison
+    # Add a dropdown menu for selecting the view for growth chart
     view_option = st.selectbox(
-        "Select view for growth rate chart",
+        "Select view for growth chart",
         options=["Daily", "Monthly", "Yearly"],
         index=1  # Default to Monthly
     )
 
     # Plot the growth or decline of the investment amount
-    fig_growth = px.line(growth_data, x=growth_data.index, y=growth_data.columns, labels={'value': 'Growth/Decline ($)'})
+    fig_growth = px.line(growth_data, x=growth_data.index, y=growth_data.columns, labels={'value': 'Amount USD($)'}, title='Investment Growth Chart')
     st.plotly_chart(fig_growth, use_container_width=True)
 
     st.write("#### Price Comparison")
