@@ -85,7 +85,7 @@ st.sidebar.header("User Input")
 # Dropdown for selecting tickers
 selected_tickers = st.sidebar.multiselect(
     "Select stock tickers",
-    options=[f"{ticker} - {name}" for ticker, name,in stock_etf_dict.items()],
+    options=[f"{ticker} - {name}" for ticker, name in stock_etf_dict.items()],
     # default=["AAPL - Apple Inc. - Stocks", "SPY - SPDR S&P 500 ETF Trust - ETFs"]
 )
 
@@ -122,7 +122,7 @@ data = get_data(tickers, start_date, end_date)
 
 # Display the data in page
 if not data.empty:
-    st.write("#### Price Comaprison")
+    st.write("#### Price Comparison")
     
     col1, col2 = st.columns(2, gap='Large')
     with col1:
@@ -135,7 +135,7 @@ if not data.empty:
         st.write(data)
 
     st.write("#### ROI")  
-    st.write(f"{start_date.strftime('%Y/%m/%d')} - {end_date.strftime('%Y/%m/%d')}")   
+    st.write(f"{start_date.strftime('%Y/%m/%d')} to {end_date.strftime('%Y/%m/%d')}")   
     st.write("Discover how your investments grow over time! Enter your initial investment amount and select a time period to calculate your potential return on investment (ROI). Visualize the performance of your investments with interactive charts, tracking daily, weekly, and monthly growth or decline. This tool helps you make informed financial decisions whether you're planning for the future or analyzing past performance,")
     col3, col4 = st.columns(2, gap='Large')
     with col3:
@@ -152,14 +152,14 @@ if not data.empty:
             final_value = round(shares_purchased * latest_price, 2)
             roi = round(final_value - investment_amount, 2)
             roi_percentage = round(((latest_price - initial_price) / initial_price) * 100, 2)  # Same as growth rate
-             # Calculate growth or decline for each date
+            # Calculate growth or decline for each date
             growth_data[ticker] = (data[ticker] / initial_price - 1) * investment_amount
 
             roi_data.append({
                 "Ticker": ticker,
-                "Initial Price": initial_price,
-                "Latest Price": latest_price,
-                "Shares Purchased": shares_purchased,
+                "Initial Price": round(initial_price, 2),
+                "Latest Price": round(latest_price, 2),
+                "Shares Purchased": round(shares_purchased, 2),
                 "Final Value": final_value,
                 "ROI ($)": roi,
                 "ROI (%)": roi_percentage
@@ -169,25 +169,17 @@ if not data.empty:
         st.write("ROI Data Table")
         st.write(roi_df)
   
+    # Plot the growth or decline of the investment amount
+    st.write("#### Growth or Decline of Investment Amount")
+    fig_growth = px.line(growth_data, x=growth_data.index, y=growth_data.columns, labels={'value': 'Growth/Decline ($)'})
+    st.plotly_chart(fig_growth, use_container_width=True)
+
     # Add a dropdown menu for selecting the view for growth rate comparison
     view_option = st.selectbox(
         "Select view for growth rate chart",
         options=["Daily", "Monthly", "Yearly"],
         index=1  # Default to Monthly
     )
-
-    # Plot the growth or decline of the investment amount
-    st.write("#### Growth or Decline of Investment Amount")
-    fig_growth = px.line(growth_data, x=growth_data.index, y=growth_data.columns, labels={'value': 'Growth/Decline ($)'})
-    st.plotly_chart(fig_growth, use_container_width=True)
-
-        # Add a dropdown menu for selecting the view for growth rate comparison
-    view_option = st.selectbox(
-        "Select view for growth rate chart",
-        options=["Daily", "Monthly", "Yearly"],
-        index=1  # Default to Monthly
-    )
-
 
     # Calculate metrics
     st.write("### Key Metrics")
@@ -223,7 +215,7 @@ if not data.empty:
     metrics_df = pd.DataFrame(metrics)
     st.table(metrics_df)
 
-     # Fetch description of the selected ticker
+    # Fetch description of the selected ticker
     descriptions = {}
     st.write("### Description")
     for ticker in tickers:
