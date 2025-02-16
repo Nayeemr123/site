@@ -77,21 +77,42 @@ st.title("Portfolio Performance Analyzer")
 st.write("This interactive dashboard empowers you to compare the performance of multiple stocks and ETFs side-by-side. Analyze historical price trends, percentage changes, and calculate potential returns on your investments over a chosen timeframe. Visualize your data with ease and gain valuable insights to inform your investment decisions.")
 st.write('All Data sourced from Yahoo Finance Database')
 
-# Predefined list of popular tickers with their full company names
+# Predefined ist of popular tickers with their full company names
 stock_etf_dict, crypto_dict = get_ticker_list()
-
 # Sidebar for user input
-st.sidebar.header("User Input")
+# st.sidebar.header("User Input")
+
+# # Dropdown for selecting tickers
+# selected_tickers = st.sidebar.multiselect(
+#     "Select stock tickers",
+#     options=[f"{ticker} - {name}" for ticker, name in stock_etf_dict.items()],
+#     # default=["AAPL - Apple Inc. - Stocks", "SPY - SPDR S&P 500 ETF Trust - ETFs"]
+# )
+
+# # Manual input for tickers
+# manual_tickers = st.sidebar.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, HIMS")
+
+# # Combine selected tickers from dropdown and manual input
+# tickers = [ticker.split(" - ")[0] for ticker in selected_tickers]
+# if manual_tickers:
+#     tickers.extend([ticker.strip() for ticker in manual_tickers.split(",")])
+
+# # Date range selection
+# start_date = st.sidebar.date_input("Start date", pd.to_datetime("2024-01-01"))
+# end_date = st.sidebar.date_input("End date", pd.to_datetime("today"))
+
+# User input section at the top of the page
+st.header("User Input")
 
 # Dropdown for selecting tickers
-selected_tickers = st.sidebar.multiselect(
+selected_tickers = st.multiselect(
     "Select stock tickers",
     options=[f"{ticker} - {name}" for ticker, name in stock_etf_dict.items()],
     # default=["AAPL - Apple Inc. - Stocks", "SPY - SPDR S&P 500 ETF Trust - ETFs"]
 )
 
 # Manual input for tickers
-manual_tickers = st.sidebar.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, HIMS")
+manual_tickers = st.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, HIMS")
 
 # Combine selected tickers from dropdown and manual input
 tickers = [ticker.split(" - ")[0] for ticker in selected_tickers]
@@ -99,8 +120,8 @@ if manual_tickers:
     tickers.extend([ticker.strip() for ticker in manual_tickers.split(",")])
 
 # Date range selection
-start_date = st.sidebar.date_input("Start date", pd.to_datetime("2024-01-01"))
-end_date = st.sidebar.date_input("End date", pd.to_datetime("today"))
+start_date = st.date_input("Start date", pd.to_datetime("2024-01-01"))
+end_date = st.date_input("End date", pd.to_datetime("today"))
 
 # Fetch data from Yahoo Finance
 @st.cache_data
@@ -123,9 +144,8 @@ data = get_data(tickers, start_date, end_date)
 
 # Display the data in page
 if not data.empty:
-    st.write("#### ROI")  
-    st.write(f"{start_date.strftime('%Y/%m/%d')} to {end_date.strftime('%Y/%m/%d')}")   
-    st.write("Discover how your investments grow over time! Enter your initial investment amount and select a time period to calculate your potential return on investment (ROI). Visualize the performance of your investments with interactive charts, tracking daily, weekly, and monthly growth or decline. This tool helps you make informed financial decisions whether you're planning for the future or analyzing past performance,")
+    st.write("#### Return on Investment (ROI)")    
+    st.write("Calculate investments over a given time period to see your potential ROI. Visualize the performance of your investments with interactive charts, tracking daily, weekly, and monthly growth or decline.")
     col3, col4 = st.columns(2, gap='Large')
     with col3:
         # Calculate ROI based on the initial investment amount
@@ -155,19 +175,18 @@ if not data.empty:
             })
 
         roi_df = pd.DataFrame(roi_data)
-        st.write("ROI Data Table")
+        st.write(f"ROI Data Table ({start_date.strftime('%Y/%m/%d')} - {end_date.strftime('%Y/%m/%d')})") 
         st.write(roi_df)
-  
-    # Add a dropdown menu for selecting the view for growth rate comparison
+
+    # Add a dropdown menu for selecting the view for growth chart
     view_option = st.selectbox(
-        "Select view for growth rate chart",
+        "Select view for chart",
         options=["Daily", "Monthly", "Yearly"],
         index=1  # Default to Monthly
     )
 
     # Plot the growth or decline of the investment amount
-    st.write("#### Growth or Decline of Investment Amount")
-    fig_growth = px.line(growth_data, x=growth_data.index, y=growth_data.columns, labels={'value': 'Growth/Decline ($)'}, title='Investment Growth Over Time Chart')
+    fig_growth = px.line(growth_data, x=growth_data.index, y=growth_data.columns, labels={'value': 'Amount USD($)'}, title='Investment Growth Over Time Chart')
     st.plotly_chart(fig_growth, use_container_width=True)
 
     st.write("#### Price Comparison")
