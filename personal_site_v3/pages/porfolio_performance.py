@@ -80,7 +80,7 @@ st.write('All Data sourced from Yahoo Finance Database')
 stock_etf_dict, crypto_dict = get_ticker_list()
 
 # User input section at the top of the page
-st.header("Choose stocks and date range")
+st.header("Choose stocks & date range")
 
 col1, col2 = st.columns(2, gap='Large')
 with col1:
