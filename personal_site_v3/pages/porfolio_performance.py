@@ -92,10 +92,9 @@ with col1:
     # default=["AAPL - Apple Inc. - Stocks", "SPY - SPDR S&P 500 ETF Trust - ETFs"]
 )
 
-# Manual input for tickers
-manual_tickers = st.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, HIMS")
- 
-
+    # Manual input for tickers
+    manual_tickers = st.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, HIMS")
+    
 with col2:
     # Combine selected tickers from dropdown and manual input
     tickers = [ticker.split(" - ")[0] for ticker in selected_tickers]
