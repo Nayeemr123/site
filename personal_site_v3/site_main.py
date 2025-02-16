@@ -6,7 +6,6 @@ import threading
 def keep_alive():
     while True:
         time.sleep(300)  # Simulate activity every 5 minutes
-        # Lightweight activity to keep the app alive
         st.write("", key=f"keep_alive_{time.time()}")  # Write an empty string to the app
 
 # Start the background thread
@@ -24,7 +23,7 @@ about_page = st.Page(
 )
 
 portfolio_performance = st.Page(
-    page="pages/portfolio_performance.py",
+    page="pages/portfolio_performance.py",  # Corrected file name
     title="Portfolio Performance Analyzer",
     icon="📈",
 )
@@ -33,7 +32,7 @@ portfolio_performance = st.Page(
 nav = st.navigation(
     {
         "Info": [about_page],
-        "Projects": [portfolio_performance],
+        "Projects": [portfolio_performance],  # Corrected variable name
     }
 )
 
