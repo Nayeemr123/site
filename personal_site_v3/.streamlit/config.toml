@@ -1,2 +1,8 @@
+toml
+Copy
 [theme]
-base="dark"
+primaryColor = "#FF4B4B"
+backgroundColor = "#1E1E1E"  # Dark background
+secondaryBackgroundColor = "#2E2E2E"  # Slightly lighter dark background
+textColor = "#FFFFFF"  # White text
+font = "sans serif"
