@@ -95,15 +95,15 @@ with col1:
     # Manual input for tickers
     manual_tickers = st.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, HIMS")
     
-with col2:
     # Combine selected tickers from dropdown and manual input
     tickers = [ticker.split(" - ")[0] for ticker in selected_tickers]
     if manual_tickers:
         tickers.extend([ticker.strip() for ticker in manual_tickers.split(",")])
 
-# Date range selection
-start_date = st.date_input("Start date", pd.to_datetime("2024-01-01"))
-end_date = st.date_input("End date", pd.to_datetime("today"))
+with col2:
+    # Date range selection
+    start_date = st.date_input("Start date", pd.to_datetime("2024-01-01"))
+    end_date = st.date_input("End date", pd.to_datetime("today"))
 
 # Fetch data from Yahoo Finance
 @st.cache_data
