@@ -72,7 +72,6 @@ def get_ticker_list():
     # Convert the DataFrame to a dictionary
     return stock_etf_dict, crypto_dict
 
-
 st.title("Portfolio Performance Analyzer")
 st.write("This interactive dashboard empowers you to compare the performance of multiple stocks and ETFs side-by-side. Analyze historical price trends, percentage changes, and calculate potential returns on your investments over a chosen timeframe. Visualize your data with ease and gain valuable insights to inform your investment decisions.")
 st.write('All Data sourced from Yahoo Finance Database')
@@ -126,6 +125,7 @@ data = get_data(tickers, start_date, end_date)
 
 # Display the data in page
 if not data.empty:
+    st.write("#### ")
     st.write("#### Return on Investment (ROI)")    
     st.write("Calculate investments over a given time period to see your potential ROI. Visualize the performance of your investments with interactive charts, tracking daily, weekly, and monthly growth or decline.")
     col3, col4 = st.columns(2, gap='Large')
