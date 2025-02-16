@@ -79,33 +79,14 @@ st.write('All Data sourced from Yahoo Finance Database')
 
 # Predefined ist of popular tickers with their full company names
 stock_etf_dict, crypto_dict = get_ticker_list()
-# Sidebar for user input
-# st.sidebar.header("User Input")
-
-# # Dropdown for selecting tickers
-# selected_tickers = st.sidebar.multiselect(
-#     "Select stock tickers",
-#     options=[f"{ticker} - {name}" for ticker, name in stock_etf_dict.items()],
-#     # default=["AAPL - Apple Inc. - Stocks", "SPY - SPDR S&P 500 ETF Trust - ETFs"]
-# )
-
-# # Manual input for tickers
-# manual_tickers = st.sidebar.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, HIMS")
-
-# # Combine selected tickers from dropdown and manual input
-# tickers = [ticker.split(" - ")[0] for ticker in selected_tickers]
-# if manual_tickers:
-#     tickers.extend([ticker.strip() for ticker in manual_tickers.split(",")])
-
-# # Date range selection
-# start_date = st.sidebar.date_input("Start date", pd.to_datetime("2024-01-01"))
-# end_date = st.sidebar.date_input("End date", pd.to_datetime("today"))
 
 # User input section at the top of the page
-st.header("User Input")
+st.header("Choose stocks and date range")
 
-# Dropdown for selecting tickers
-selected_tickers = st.multiselect(
+col1, col2 = st.columns(2, gap='Large')
+with col1:
+   # Dropdown for selecting tickers
+    selected_tickers = st.multiselect(
     "Select stock tickers",
     options=[f"{ticker} - {name}" for ticker, name in stock_etf_dict.items()],
     # default=["AAPL - Apple Inc. - Stocks", "SPY - SPDR S&P 500 ETF Trust - ETFs"]
@@ -113,11 +94,13 @@ selected_tickers = st.multiselect(
 
 # Manual input for tickers
 manual_tickers = st.text_input("Or enter stock tickers manually (comma separated)", "AAPL, NVDA, HIMS")
+ 
 
-# Combine selected tickers from dropdown and manual input
-tickers = [ticker.split(" - ")[0] for ticker in selected_tickers]
-if manual_tickers:
-    tickers.extend([ticker.strip() for ticker in manual_tickers.split(",")])
+with col2:
+    # Combine selected tickers from dropdown and manual input
+    tickers = [ticker.split(" - ")[0] for ticker in selected_tickers]
+    if manual_tickers:
+        tickers.extend([ticker.strip() for ticker in manual_tickers.split(",")])
 
 # Date range selection
 start_date = st.date_input("Start date", pd.to_datetime("2024-01-01"))
